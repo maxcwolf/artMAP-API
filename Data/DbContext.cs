@@ -11,6 +11,9 @@ namespace ArtMapApi.Data
 
         public DbSet<Post> Post { get; set; }
         public DbSet<User> User { get; set; }
+        public DbSet<Like> Like { get; set; }
+        public DbSet<Comment> Comment { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
