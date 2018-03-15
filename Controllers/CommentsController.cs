@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore;
 namespace ArtMapApi.Controllers
 {
     [Produces("application/json")]
-    [Route("comments")]
-    [EnableCors("AllowSpecificOrigin")]
+    [Route("/api/comments")]
+    // [EnableCors("AllowSpecificOrigin")]
     public class CommentsController : Controller
     {
         private ApplicationDbContext _context;

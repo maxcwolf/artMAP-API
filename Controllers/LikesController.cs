@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore;
 namespace ArtMapApi.Controllers
 {
     [Produces("application/json")]
-    [Route("likes")]
-    [EnableCors("AllowSpecificOrigin")]
+    [Route("api/likes")]
+    // [EnableCors("AllowSpecificOrigin")]
     public class LikesController : Controller
     {
         private ApplicationDbContext _context;
