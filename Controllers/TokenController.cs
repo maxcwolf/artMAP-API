@@ -33,7 +33,7 @@ namespace ArtMapApi
         [Authorize]
         public IActionResult Get(){
             return new ObjectResult(new {
-                Username = User.Identity.Name
+                Email = User.Identity.Name
             });
         }
 
@@ -45,27 +45,36 @@ namespace ArtMapApi
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(string username, string password, string firstname, string lastname)
+        public async Task<IActionResult> Create(string username, string password, string email)
         {
             // // Check simplistic username and password validation rules
 
-            bool isValid = IsValidUserAndPasswordCombination(username, password);
+            bool isValid = IsValidUserAndPasswordCombination(email, password);
 
             if (isValid)
             {
                 // Does the user already exist?
-                User user = _context.User.SingleOrDefault(u => u.Email == username);
+                User user = _context.User.SingleOrDefault(u => u.Email == email);
 
                 if (user != null)
                 {
                     // Found the user, verify credentials
                     var result = await _signInManager.PasswordSignInAsync(user, password, false, lockoutOnFailure: false);
 
-                    // Password is correct, generate token and return it
+                    // Password is correct, generate token and return it as well as the user id to be stored in local storage
                     if (result.Succeeded)
                     {
-                        return new ObjectResult(GenerateToken(user.UserName));
-                    }
+                        var tokenKeys = new {
+
+                            Token = GenerateToken(user.Email),
+                            UserId = user.Id
+
+                        };
+
+                        var localStoreObject = Newtonsoft.Json.JsonConvert.SerializeObject(tokenKeys);
+
+                        return new ObjectResult(localStoreObject);
+                    };
                 } else
                 {
                     var userstore = new UserStore<User>(_context);
@@ -74,8 +83,8 @@ namespace ArtMapApi
                     user = new User {
                         UserName = username,
                         NormalizedUserName = username.ToUpper(),
-                        Email = username,
-                        NormalizedEmail = username.ToUpper(),
+                        Email = email,
+                        NormalizedEmail = email.ToUpper(),
                         EmailConfirmed = true,
                         LockoutEnabled = false,
                         SecurityStamp = Guid.NewGuid().ToString("D")
@@ -85,22 +94,22 @@ namespace ArtMapApi
                     await userstore.CreateAsync(user);
                     // await userstore.AddToRoleAsync(user);
                     _context.SaveChanges();
-                    return new ObjectResult(GenerateToken(user.UserName));
+                    return new ObjectResult(GenerateToken(user.Email));
                 }
             }
             return BadRequest();
         }
 
-        private bool IsValidUserAndPasswordCombination(string username, string password)
+        private bool IsValidUserAndPasswordCombination(string email, string password)
         {
-            return !string.IsNullOrEmpty(username) && username != password;
+            return !string.IsNullOrEmpty(email) && email != password;
         }
 
-        private string GenerateToken(string username)
+        private string GenerateToken(string email)
         {
             var claims = new Claim[]
             {
-                new Claim(ClaimTypes.Name, username),
+                new Claim(ClaimTypes.Name, email),
                 new Claim(JwtRegisteredClaimNames.Nbf, new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds().ToString()),
                 new Claim(JwtRegisteredClaimNames.Exp, new DateTimeOffset(DateTime.Now.AddDays(1)).ToUnixTimeSeconds().ToString()),
                 // new Claim(ClaimTypes.Role),

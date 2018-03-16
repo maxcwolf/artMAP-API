@@ -1,9 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using ArtMapApi.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace ArtMapApi.Data
 {
-    public class ApplicationDbContext: DbContext
+    public class ApplicationDbContext: IdentityDbContext<User>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -20,6 +21,8 @@ namespace ArtMapApi.Data
             modelBuilder.Entity<Post>()
                 .Property(b => b.CreatedAt)
                 .HasDefaultValueSql("strftime('%Y-%m-%d %H:%M:%S')");
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 
