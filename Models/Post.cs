@@ -8,42 +8,44 @@ namespace ArtMapApi.Models
 {
     public class Post
     {
-        [Key]
+        // [Key]
         public int PostId { get; set; }
 
-        [Required]
+        public string UserId { get; set; }
+
+        // [Required]
         public string PhotoId { get; set; }
 
-        [Required]
-        [StringLength(25)]
+        // [Required]
+        // [StringLength(25)]
         public string Artist { get; set; }
-        [Required]
-        [StringLength(25)]
+        // [Required]
+        // [StringLength(25)]
         public string Title { get; set; }
 
-        [Required]
-        [DataType(DataType.Date)]
+        // [Required]
+        // [DataType(DataType.Date)]
         public DateTime CreatedAt { get; set; }
 
-        [Required]
-        [DataType(DataType.Date)]
+        // [Required]
+        // [DataType(DataType.Date)]
         public DateTime UpdatedAt { get; set; }
 
-        [Required]
+        // [Required]
         public decimal Lat { get; set; }
 
-        [Required]
+        // [Required]
         public decimal Long { get; set; }
 
-        [Required]
+        // [Required]
         public string PhotoURI { get; set; }
 
-        [Required]
-        [DefaultValue(0)]
+        // [Required]
+        // [DefaultValue(0)]
         public int LikesCount { get; set; }
 
-        [Required]
-        [DefaultValue(0)]
+        // [Required]
+        // [DefaultValue(0)]
         public int CommentsCount { get; set; }
     }
 }

@@ -11,7 +11,7 @@ using System;
 namespace ArtMapApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180315200018_Initial")]
+    [Migration("20180317200229_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -64,9 +64,7 @@ namespace ArtMapApi.Migrations
                     b.Property<int>("PostId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Artist")
-                        .IsRequired()
-                        .HasMaxLength(25);
+                    b.Property<string>("Artist");
 
                     b.Property<int>("CommentsCount");
 
@@ -80,17 +78,15 @@ namespace ArtMapApi.Migrations
 
                     b.Property<decimal>("Long");
 
-                    b.Property<string>("PhotoId")
-                        .IsRequired();
+                    b.Property<string>("PhotoId");
 
-                    b.Property<string>("PhotoURI")
-                        .IsRequired();
+                    b.Property<string>("PhotoURI");
 
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(25);
+                    b.Property<string>("Title");
 
                     b.Property<DateTime>("UpdatedAt");
+
+                    b.Property<string>("UserId");
 
                     b.HasKey("PostId");
 

@@ -90,16 +90,17 @@ namespace ArtMapApi.Migrations
                 {
                     PostId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Artist = table.Column<string>(maxLength: 25, nullable: false),
+                    Artist = table.Column<string>(nullable: true),
                     CommentsCount = table.Column<int>(nullable: false),
                     CreatedAt = table.Column<DateTime>(nullable: false, defaultValueSql: "strftime('%Y-%m-%d %H:%M:%S')"),
                     Lat = table.Column<decimal>(nullable: false),
                     LikesCount = table.Column<int>(nullable: false),
                     Long = table.Column<decimal>(nullable: false),
-                    PhotoId = table.Column<string>(nullable: false),
-                    PhotoURI = table.Column<string>(nullable: false),
-                    Title = table.Column<string>(maxLength: 25, nullable: false),
-                    UpdatedAt = table.Column<DateTime>(nullable: false)
+                    PhotoId = table.Column<string>(nullable: true),
+                    PhotoURI = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(nullable: true),
+                    UpdatedAt = table.Column<DateTime>(nullable: false),
+                    UserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

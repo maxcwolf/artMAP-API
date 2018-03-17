@@ -63,9 +63,7 @@ namespace ArtMapApi.Migrations
                     b.Property<int>("PostId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Artist")
-                        .IsRequired()
-                        .HasMaxLength(25);
+                    b.Property<string>("Artist");
 
                     b.Property<int>("CommentsCount");
 
@@ -79,17 +77,15 @@ namespace ArtMapApi.Migrations
 
                     b.Property<decimal>("Long");
 
-                    b.Property<string>("PhotoId")
-                        .IsRequired();
+                    b.Property<string>("PhotoId");
 
-                    b.Property<string>("PhotoURI")
-                        .IsRequired();
+                    b.Property<string>("PhotoURI");
 
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(25);
+                    b.Property<string>("Title");
 
                     b.Property<DateTime>("UpdatedAt");
+
+                    b.Property<string>("UserId");
 
                     b.HasKey("PostId");
 

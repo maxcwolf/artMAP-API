@@ -75,6 +75,9 @@ namespace ArtMapApi.Controllers
                 return BadRequest(ModelState);
             }
 
+            //autopopulate datecreated with the current time
+            post.CreatedAt = DateTime.Now;
+
             _context.Post.Add(post);
 
             try
