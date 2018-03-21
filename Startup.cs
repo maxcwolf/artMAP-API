@@ -16,6 +16,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Identity;
 using System.Text;
 using ArtMapApi.Models;
+using System.Net.WebSockets;
 
 namespace ArtMapApi
 {
@@ -31,7 +32,8 @@ namespace ArtMapApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors(options => {
+            services.AddCors(options =>
+            {
                 options.AddPolicy("AllowAllOrigins",
                 builder =>
                 {
@@ -46,7 +48,7 @@ namespace ArtMapApi
 
             services.AddMvc();
 
-             // Set up JWT authentication service
+            // Set up JWT authentication service
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = "Jwt";
@@ -78,6 +80,9 @@ namespace ArtMapApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            //allow the use of viewing static files in my wwwroot folder
+            app.UseStaticFiles();
+
             app.UseCors("AllowAllOrigins");
 
             if (env.IsDevelopment())

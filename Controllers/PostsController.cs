@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using ArtMapApi.Data;
 using ArtMapApi.Models;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,10 +19,12 @@ namespace ArtMapApi.Controllers
     public class PostsController : Controller
     {
         private ApplicationDbContext _context;
+        private IHostingEnvironment _hostingEnvironment;
 
-        public PostsController(ApplicationDbContext ctx)
+        public PostsController(ApplicationDbContext ctx, IHostingEnvironment environment)
         {
             _context = ctx;
+            _hostingEnvironment = environment;
         }
 
         // GET /posts
@@ -68,7 +72,7 @@ namespace ArtMapApi.Controllers
 
         // POST /posts
         [HttpPost]
-        public IActionResult Post([FromBody] Post post)
+        public async Task<IActionResult> Post([FromBody] Post post)
         {
             if (!ModelState.IsValid)
             {
@@ -78,6 +82,7 @@ namespace ArtMapApi.Controllers
             //autopopulate datecreated with the current time
             post.CreatedAt = DateTime.Now;
 
+            //add it all to the db
             _context.Post.Add(post);
 
             try

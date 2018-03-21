@@ -67,7 +67,9 @@ namespace ArtMapApi
                         var tokenKeys = new {
 
                             Token = GenerateToken(user.Email),
-                            UserId = user.Id
+                            UserId = user.Id,
+                            email = user.Email
+
 
                         };
 
