@@ -61,7 +61,7 @@ namespace ArtMapApi.Migrations
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     PostId = table.Column<int>(nullable: false),
                     UpdatedAt = table.Column<DateTime>(nullable: false),
-                    UserId = table.Column<int>(nullable: false)
+                    UserId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -77,7 +77,7 @@ namespace ArtMapApi.Migrations
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     PostId = table.Column<int>(nullable: false),
                     UpdatedAt = table.Column<DateTime>(nullable: false),
-                    UserId = table.Column<int>(nullable: false)
+                    UserId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {

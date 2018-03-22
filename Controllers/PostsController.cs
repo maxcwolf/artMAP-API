@@ -82,6 +82,7 @@ namespace ArtMapApi.Controllers
             //autopopulate datecreated with the current time
             post.CreatedAt = DateTime.Now;
 
+
             //add it all to the db
             _context.Post.Add(post);
 

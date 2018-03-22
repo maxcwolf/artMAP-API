@@ -33,7 +33,8 @@ namespace ArtMapApi.Migrations
 
                     b.Property<DateTime>("UpdatedAt");
 
-                    b.Property<int>("UserId");
+                    b.Property<string>("UserId")
+                        .IsRequired();
 
                     b.HasKey("CommentId");
 
@@ -51,7 +52,8 @@ namespace ArtMapApi.Migrations
 
                     b.Property<DateTime>("UpdatedAt");
 
-                    b.Property<int>("UserId");
+                    b.Property<string>("UserId")
+                        .IsRequired();
 
                     b.HasKey("LikeId");
 

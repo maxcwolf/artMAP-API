@@ -11,7 +11,7 @@ using System;
 namespace ArtMapApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180317200229_Initial")]
+    [Migration("20180321174728_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,7 +34,8 @@ namespace ArtMapApi.Migrations
 
                     b.Property<DateTime>("UpdatedAt");
 
-                    b.Property<int>("UserId");
+                    b.Property<string>("UserId")
+                        .IsRequired();
 
                     b.HasKey("CommentId");
 
@@ -52,7 +53,8 @@ namespace ArtMapApi.Migrations
 
                     b.Property<DateTime>("UpdatedAt");
 
-                    b.Property<int>("UserId");
+                    b.Property<string>("UserId")
+                        .IsRequired();
 
                     b.HasKey("LikeId");
 
